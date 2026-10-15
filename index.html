@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinAid | Student Financial Aid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="brand" onclick="showSection('home')">
+    <div class="brand-icon">F</div>
+    <div>
+      <strong>FinAid</strong>
+      <span>Student Financial Support</span>
+    </div>
+  </div>
+
+  <nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('schemes')">Aid Schemes</button>
+    <button onclick="showSection('register')">Register</button>
+    <button onclick="showSection('login')">Student Login</button>
+    <button class="admin-nav" onclick="showSection('admin')">Admin</button>
+  </nav>
+</header>
+
+<main>
+
+<section id="home" class="section active">
+  <div class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">STUDENT FINANCIAL SUPPORT PLATFORM</span>
+      <h1>Financial support,<br><span>made simpler.</span></h1>
+      <p>Discover financial aid schemes, check eligibility, submit applications and track your application status in one place.</p>
+      <div class="hero-actions">
+        <button class="btn primary" onclick="showSection('schemes')">Explore Aid Schemes →</button>
+        <button class="btn secondary" onclick="showSection('register')">Create Student Account</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="mini-icon">₹</div>
+      <h3>Student Financial Aid</h3>
+      <p>One platform for discovering and managing educational financial assistance.</p>
+      <div class="hero-line"><span>✓</span> Easy application tracking</div>
+      <div class="hero-line"><span>✓</span> Transparent status updates</div>
+      <div class="hero-line"><span>✓</span> Centralized aid schemes</div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card"><div class="feature-icon">01</div><h3>Discover</h3><p>View available financial aid schemes and their eligibility criteria.</p></div>
+    <div class="feature-card"><div class="feature-icon">02</div><h3>Apply</h3><p>Submit your application with the required information and documents.</p></div>
+    <div class="feature-card"><div class="feature-icon">03</div><h3>Track</h3><p>Monitor verification, approval and rejection status from your dashboard.</p></div>
+  </div>
+</section>
+
+<section id="register" class="section narrow">
+  <div class="page-heading">
+    <span class="eyebrow">GET STARTED</span>
+    <h2>Create your student account</h2>
+    <p>Enter your details to access financial aid services.</p>
+  </div>
+  <div class="form-card">
+    <form id="registerForm" class="form-grid">
+      <div class="field full"><label>Full Name *</label><input id="regName" required placeholder="Enter your full name"></div>
+      <div class="field"><label>Student ID *</label><input id="regStudentId" required placeholder="e.g. 24IT101"></div>
+      <div class="field"><label>Email *</label><input id="regEmail" type="email" required placeholder="student@example.com"></div>
+      <div class="field"><label>Password *</label><input id="regPassword" type="password" required placeholder="Create password"></div>
+      <div class="field"><label>Department</label><input id="regDepartment" placeholder="e.g. Information Technology"></div>
+      <div class="field"><label>Year</label><select id="regYear"><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></div>
+      <div class="field"><label>Phone</label><input id="regPhone" placeholder="10-digit number"></div>
+      <div class="field"><label>Annual Family Income</label><input id="regIncome" type="number" placeholder="₹ Annual income"></div>
+      <div class="full"><button class="btn primary wide" type="submit">Create Account</button></div>
+    </form>
+    <p id="registerMessage" class="message"></p>
+  </div>
+</section>
+
+<section id="login" class="section narrow">
+  <div class="auth-card">
+    <div class="auth-icon">F</div>
+    <span class="eyebrow">STUDENT PORTAL</span>
+    <h2>Welcome back</h2>
+    <p>Sign in to view schemes and track your applications.</p>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="loginEmail" type="email" required placeholder="Enter your email"></div>
+      <div class="field"><label>Password</label><input id="loginPassword" type="password" required placeholder="Enter your password"></div>
+      <button class="btn primary wide" type="submit">Sign In</button>
+    </form>
+    <p id="loginMessage" class="message"></p>
+  </div>
+</section>
+
+<section id="schemes" class="section">
+  <div class="page-heading row-heading">
+    <div><span class="eyebrow">FINANCIAL SUPPORT</span><h2>Available Aid Schemes</h2><p>Explore assistance opportunities available for students.</p></div>
+    <input id="schemeSearch" class="search" placeholder="Search schemes..." oninput="filterSchemes()">
+  </div>
+  <div id="schemeList" class="scheme-grid"></div>
+</section>
+
+<section id="studentDashboard" class="section">
+  <div class="dashboard-head">
+    <div><span class="eyebrow">STUDENT PORTAL</span><h2 id="studentWelcome">Dashboard</h2><p>Manage your profile and financial aid applications.</p></div>
+    <button class="btn secondary" onclick="logoutStudent()">Logout</button>
+  </div>
+  <div id="studentInfo" class="profile-strip"></div>
+  <div class="section-title"><h3>Available Aid</h3><span>Apply to an eligible scheme</span></div>
+  <div id="studentSchemes" class="scheme-grid"></div>
+  <div class="section-title"><h3>My Applications</h3><span>Track your application status</span></div>
+  <div id="myApplications"></div>
+</section>
+
+<section id="admin" class="section">
+  <div class="dashboard-head">
+    <div><span class="eyebrow">ADMINISTRATION</span><h2>Management Dashboard</h2><p>Manage aid schemes and student applications.</p></div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span>Total Students</span><strong id="statStudents">0</strong></div>
+    <div class="stat-card"><span>Aid Schemes</span><strong id="statSchemes">0</strong></div>
+    <div class="stat-card"><span>Applications</span><strong id="statApplications">0</strong></div>
+    <div class="stat-card"><span>Approved</span><strong id="statApproved">0</strong></div>
+    <div class="stat-card"><span>Pending</span><strong id="statPending">0</strong></div>
+    <div class="stat-card"><span>Rejected</span><strong id="statRejected">0</strong></div>
+  </div>
+
+  <div class="admin-layout">
+    <div class="form-card">
+      <div class="section-title"><h3>Add Aid Scheme</h3></div>
+      <form id="schemeForm">
+        <div class="field"><label>Scheme Name</label><input id="schemeName" required placeholder="e.g. Merit Support Scheme"></div>
+        <div class="field"><label>Amount</label><input id="schemeAmount" type="number" required placeholder="Enter amount"></div>
+        <div class="field"><label>Eligibility</label><input id="schemeEligibility" placeholder="Eligibility criteria"></div>
+        <div class="field"><label>Required Documents</label><input id="schemeDocuments" placeholder="Income certificate, ID proof..."></div>
+        <div class="field"><label>Deadline</label><input id="schemeDeadline" type="date"></div>
+        <div class="field"><label>Description</label><textarea id="schemeDescription" placeholder="Scheme description"></textarea></div>
+        <button class="btn primary wide" type="submit">Add Scheme</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <div class="section-title"><h3>Manage Schemes</h3></div>
+      <div id="adminSchemes"></div>
+    </div>
+  </div>
+
+  <div class="panel application-panel">
+    <div class="section-title"><h3>Student Applications</h3><span>Verify and update status</span></div>
+    <div id="adminApplications"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>FinAid</strong> · Student Financial Aid Management System
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
